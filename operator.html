@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>SENSTACK OS — Operator Mode</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Inter, Arial;
+  background: #0D0D0D;
+  color: #F0EDE6;
+}
+
+header {
+  padding: 20px;
+  border-bottom: 1px solid #2A2A2A;
+}
+
+h1 {
+  color: #C8963E;
+  margin: 0;
+  font-family: Georgia;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+.card {
+  background: #141414;
+  border: 1px solid #2A2A2A;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin: 6px 0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.onair {
+  background: #C8963E;
+  color: black;
+}
+
+.offair {
+  background: #2A2A2A;
+  color: #F0EDE6;
+}
+
+.danger {
+  background: #8B0000;
+  color: white;
+}
+
+.status {
+  padding: 10px;
+  background: #111;
+  border-left: 4px solid #C8963E;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+a {
+  color: #F0EDE6;
+  text-decoration: none;
+  display: block;
+  margin: 6px 0;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>OPERATOR MODE — STV CONTROL ROOM</h1>
+</header>
+
+<div class="container">
+
+  <!-- ON AIR -->
+  <div class="card">
+    <h2>🎛️ BROADCAST CONTROL</h2>
+
+    <button class="onair" onclick="setStatus('ON AIR')">ON AIR</button>
+    <button class="offair" onclick="setStatus('OFF AIR')">OFF AIR</button>
+    <button class="danger" onclick="setStatus('EMERGENCY STOP')">EMERGENCY STOP</button>
+
+    <div class="status" id="statusBox">Status: STANDBY</div>
+  </div>
+
+  <!-- STREAM -->
+  <div class="card">
+    <h2>📡 STREAM CONTROL</h2>
+
+    <a href="https://listen.streamaudio.co/start/stvradio" target="_blank">Start Radio Stream</a>
+    <a href="https://listen.streamaudio.co/proxy/stvradio/stream" target="_blank">Open Live Stream</a>
+    <a href="https://listen.streamaudio.co:2199/tunein/stvradio.pls" target="_blank">Backup Player</a>
+  </div>
+
+  <!-- DJ MODE -->
+  <div class="card">
+    <h2>🎧 DJ MODE</h2>
+
+    <button onclick="setDJ('AUTO DJ')">Auto DJ</button>
+    <button onclick="setDJ('LIVE DJ')">Live DJ</button>
+
+    <div class="status" id="djBox">Mode: AUTO DJ</div>
+  </div>
+
+  <!-- LIVE ROOM -->
+  <div class="card">
+    <h2>🎥 LIVE ROOM</h2>
+
+    <a href="https://vdo.ninja/?scene=0&layout&remote&showlabels&room=STVlIv3" target="_blank">
+      Launch Studio Room
+    </a>
+  </div>
+
+  <!-- PROMO -->
+  <div class="card">
+    <h2>🎬 PROMO ROTATION</h2>
+
+    <p>Current Feature:</p>
+
+    <img src="https://img.youtube.com/vi/R8B3-SPlP18/maxresdefault.jpg" style="width:100%; border-radius:8px;" />
+
+    <a href="https://music.youtube.com/watch?v=R8B3-SPlP18" target="_blank">
+      EMIL GORDON JR ft Risk — Cruzin
+    </a>
+  </div>
+
+  <!-- SYSTEM LOG -->
+  <div class="card">
+    <h2>🧭 SYSTEM LOG</h2>
+    <div class="status" id="log">
+      System initialized...
+    </div>
+  </div>
+
+</div>
+
+<script>
+let state = "STANDBY";
+let djMode = "AUTO DJ";
+
+function setStatus(newState) {
+  state = newState;
+  document.getElementById("statusBox").innerText = "Status: " + state;
+  log("Broadcast changed → " + state);
+}
+
+function setDJ(mode) {
+  djMode = mode;
+  document.getElementById("djBox").innerText = "Mode: " + djMode;
+  log("DJ Mode set → " + djMode);
+}
+
+function log(msg) {
+  document.getElementById("log").innerText =
+    new Date().toLocaleTimeString() + " — " + msg;
+}
+</script>
+
+</body>
+</html>
